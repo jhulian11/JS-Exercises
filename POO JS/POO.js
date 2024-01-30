@@ -158,10 +158,83 @@ const Exercises = {
 
         
     },
+    Exercise4(){
+
+        class Car {
+            constructor(make, speed){
+                this.make = make;
+                this.speed = speed;
+            };
+
+            logSpeed() {
+                console.log(`'${this.make}' going at ${this.speed} km/h`);
+            };
+
+            logSpeedUS() {
+                console.log(`'${this.make}' going at ${this.speed / 1.6} mi/h`);
+            };
+
+            accelerate(){
+                this.speed += 10;
+                this.logSpeed();
+            };
+    
+            brake(){
+                this.speed -= 5;
+                this.logSpeed();
+                return this;
+            };
+
+            get speedUS(){
+                return this.speed/ 1.6;
+            };
+
+            set speedUS(speed){
+                this.speed = speed * 1.6;
+            };
+        }
+
+        class EletricCar extends Car {
+            #charge;
+            constructor(make, speed,charge){
+                super(make,speed);
+                this.#charge = charge;
+            };
+
+            getCharge() {
+                return this.#charge;
+            };
+
+            logSpeed(){
+                console.log(`'${this.make}' going at ${this.speed} km/h, with a charge of ${this.#charge}%`);
+                return this;
+            };
+
+            chargeBattery(chargeTo = 10){
+                this.#charge = chargeTo;
+                return this;
+            };
+
+            accelerate(){
+                this.speed += 10;
+                this.#charge -= 1;
+                this.logSpeed();
+                return this;
+            };
+
+            
+        }
+
+        const rivia = new EletricCar("Rivia", 120, 23);
+
+        rivia.accelerate().chargeBattery(90).brake().accelerate();
+
+    },
     Init(){
         // this.Exercise1();
         // this.Exercise2();
-        this.Exercise3();
+        // this.Exercise3();
+        this.Exercise4();
     }
 };
 
